@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Meta Tags -->
+  <title>Momin — Web Designer, Blogger & Trend Analyst</title>
+  <meta name="description" content="Portfolio of Momin, a premier Web Designer, Blogger, and Trend Analyst crafting high-impact digital experiences with purpose, luxury dark aesthetics, and fluid interactions." />
+  <meta name="keywords" content="Momin portfolio, Web Designer, 3D WebGL, UX/UI Design, Trend Analyst, Dark Mode Portfolio" />
+  <meta name="author" content="Momin" />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Momin — Web Designer & Digital Craftsman" />
+  <meta property="og:description" content="Explore selected works, digital templates, and branding services." />
+  <meta property="og:image" content="assets/images/hero_bg.jpg" />
+
+  <!-- Favicon Monogram -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%2300ff66'/><text x='50%' y='65%' font-size='55' font-weight='800' text-anchor='middle' fill='%23000000'>M</text></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Custom Glow Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-follower" id="customCursorFollower"></div>
+
+  <!-- Ambient Aurora Background Glow -->
+  <div class="ambient-aurora"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastNotification" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10000; background: var(--accent-color); color: #000; padding: 0.6rem 1.4rem; border-radius: 9999px; font-weight: 700; font-family: var(--font-mono); box-shadow: 0 0 20px var(--accent-glow); transition: opacity 0.3s, transform 0.3s;">
+    Message copied!
+  </div>
+
+  <!-- Floating Settings Gear Button -->
+  <button class="floating-gear-btn" id="gearBtn" title="Customize Theme & Animations" aria-label="Open Theme Settings">
+    ⚙
+  </button>
+
+  <!-- Floating Back to Top Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" title="Back to Top" aria-label="Back to Top">
+    ▲
+  </button>
+
+  <!-- HEADER NAVBAR -->
+  <header class="site-header" id="siteHeader">
+    <a href="#home" class="logo-brand" style="text-decoration: none;">
+      <div class="logo-icon">M</div>
+    </a>
+
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#home" class="active"><span class="num">01/</span> HOME</a></li>
+      <li class="nav-item"><a href="#works"><span class="num">02/</span> WORKS</a></li>
+      <li class="nav-item"><a href="#services"><span class="num">03/</span> SERVICES</a></li>
+      <li class="nav-item"><a href="#about"><span class="num">04/</span> ABOUT</a></li>
+      <li class="nav-item"><a href="#process"><span class="num">05/</span> PROCESS</a></li>
+      <li class="nav-item"><a href="#contact"><span class="num">06/</span> CONTACT</a></li>
+    </ul>
+
+    <div class="header-right">
+      <div class="meta-info">
+        <a href="#copy" id="headerEmailBtn" class="meta-email">MOMINMAJEED123@GMAIL.COM</a>
+        <div class="meta-clock" id="liveClock">CUP 10:48:23</div>
+      </div>
+
+      <button class="menu-toggle-btn" id="menuToggleBtn">
+        <span>≡</span> MENU
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE / OVERLAY NAVIGATION MENU -->
+  <div id="mobileMenu" style="display: none; position: fixed; inset: 0; background: #070908; z-index: 9999; padding: 3rem; flex-direction: column; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="logo-brand">
+        <div class="logo-icon">M</div>
+        <span>MOMIN</span>
+      </div>
+      <button id="closeMobileMenuBtn" style="background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer;">
+        ✕
+      </button>
+    </div>
+
+    <ul style="list-style: none; display: flex; flex-direction: column; gap: 2rem;">
+      <li><a href="#home" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">01</span>HOME</a></li>
+      <li><a href="#works" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">02</span>WORKS</a></li>
+      <li><a href="#services" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">03</span>SERVICES</a></li>
+      <li><a href="#about" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">04</span>ABOUT</a></li>
+      <li><a href="#process" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">05</span>PROCESS</a></li>
+      <li><a href="#contact" class="mobile-nav-link" style="font-family: var(--font-heading); fontSize: 3rem; color: #fff; text-decoration: none; font-weight: 700;"><span style="color: var(--accent-color); font-size: 1.5rem; margin-right: 1rem;">06</span>CONTACT</a></li>
+    </ul>
+
+    <div style="font-family: var(--font-mono); color: var(--text-secondary);">
+      MOMINMAJEED123@GMAIL.COM — AVAILABLE FOR 2025
+    </div>
+  </div>
+
+  <!-- THEME CUSTOMIZATION DRAWER -->
+  <div id="themeDrawer" class="theme-drawer" style="display: none;">
+    <div class="drawer-header">
+      <h3 style="font-family: var(--font-heading);">Theme Settings</h3>
+      <button class="drawer-close-btn" id="closeDrawerBtn">✕</button>
+    </div>
+    <div>
+      <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">Accent Palette</p>
+      <div class="color-swatch-grid">
+        <button class="swatch-btn active" data-color="#00ff66" data-glow="rgba(0, 255, 102, 0.4)" style="background: #00ff66;" title="Neon Green"></button>
+        <button class="swatch-btn" data-color="#00f0ff" data-glow="rgba(0, 240, 255, 0.4)" style="background: #00f0ff;" title="Electric Cyan"></button>
+        <button class="swatch-btn" data-color="#a855f7" data-glow="rgba(168, 85, 247, 0.4)" style="background: #a855f7;" title="Cyber Purple"></button>
+        <button class="swatch-btn" data-color="#ffb703" data-glow="rgba(255, 183, 3, 0.4)" style="background: #ffb703;" title="Laser Amber"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT INQUIRY MODAL -->
+  <div id="projectModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
+        <h2 style="font-family: var(--font-heading); font-size: 2rem;">Start A Project</h2>
+        <button id="closeModalBtn" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">
+          ✕
+        </button>
+      </div>
+
+      <form id="projectForm">
+        <div class="form-group">
+          <label class="form-label">YOUR NAME</label>
+          <input type="text" class="form-input" placeholder="Momin" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">YOUR EMAIL</label>
+          <input type="email" class="form-input" placeholder="mominmajeed123@gmail.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">PROJECT DETAILS</label>
+          <textarea class="form-textarea" rows="4" placeholder="Tell me about your goals, timeline, and scope..." required></textarea>
+        </div>
+        <button type="submit" class="cta-btn-pill" style="width: 100%; justify-content: center; margin-top: 1rem;">
+          SEND INQUIRY →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section id="home" class="hero-section">
+    <div class="hero-bg-container">
+      <img src="assets/images/hero_bg.jpg" alt="Cyber Aurora Background" class="hero-bg-image" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-left-roles">
+        <div>WEB-DESIGNER</div>
+        <div>BLOGGER</div>
+        <div>TREND ANALYST</div>
+      </div>
+
+      <div class="hero-right-box">
+        <div class="availability-badge">
+          <span class="status-dot"></span>
+          AVAILABLE FOR WORK
+          <span style="opacity: 0.5; margin-left: 1rem;">© 2025</span>
+        </div>
+
+        <div class="hero-subtext-block">
+          <p class="hero-description">
+            I craft bold brands and modern websites with purpose. Each detail balances design and usability for impact. My work adapts as your vision grows.
+          </p>
+          <button class="cta-btn-pill open-modal-trigger">
+            START A PROJECT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-title-container">
+      <h1 class="hero-heading">
+        MOMIN<span class="hero-cursor-block"></span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- SELECTED WORKS SECTION -->
+  <section id="works" class="section-padding">
+    <div class="section-label">SELECTED WORKS</div>
+
+    <div class="selected-works-container">
+      <!-- Left List -->
+      <div class="project-list-left" id="projectList">
+        <button class="project-item-btn active" data-index="0">
+          <div class="project-item-title">Future</div>
+          <div class="project-item-category">// 3D GRAPHICS / WEBGL</div>
+        </button>
+        <button class="project-item-btn" data-index="1">
+          <div class="project-item-title">Seeson</div>
+          <div class="project-item-category">// BRANDING / UI/UX</div>
+        </button>
+        <button class="project-item-btn" data-index="2">
+          <div class="project-item-title">NexoPay</div>
+          <div class="project-item-category">// FINTECH / WEB3</div>
+        </button>
+      </div>
+
+      <!-- Right Billboard Display -->
+      <div class="billboard-display-right">
+        <img id="billboardImg" src="assets/images/project_car.jpg" alt="Future Project" class="billboard-image" />
+        
+        <div class="billboard-overlay-info">
+          <div class="billboard-tags" id="billboardTags">
+            <span class="tag-pill">WebGL</span>
+            <span class="tag-pill">Three.js</span>
+            <span class="tag-pill">Motion</span>
+            <span class="tag-pill">Automotive</span>
+          </div>
+          <h3 id="billboardTitle" style="font-family: var(--font-heading); font-size: 1.8rem;">
+            Autonomous Supercar Experience
+          </h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED TEMPLATES SECTION -->
+  <section class="section-padding" style="background: #050706;">
+    <div class="featured-header-row">
+      <div>
+        <div class="section-label">PORTFOLIO showcase</div>
+        <h2 class="section-title-large" style="margin-bottom: 0;">Featured Templates</h2>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 2rem;">
+        <div class="filters-bar" id="templatesFilterBar">
+          <button class="filter-chip active" data-filter="ALL">ALL</button>
+          <button class="filter-chip" data-filter="BRANDING">BRANDING</button>
+          <button class="filter-chip" data-filter="VISUAL IDENTITY">VISUAL IDENTITY</button>
+        </div>
+
+        <div style="font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.15);">
+          20<span style="color: var(--accent-color);">25</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="templates-grid" id="templatesGrid">
+      <div class="template-card" data-category="BRANDING">
+        <div class="template-img-wrapper">
+          <img src="assets/images/template_portz.jpg" alt="Alexander Portz" class="template-img" />
+          <div class="template-hover-badge">→</div>
+        </div>
+        <div class="template-meta">
+          <div>
+            <h3 class="template-title">Alexander Portz</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.3rem;">Minimalist high-impact dark mode creative portfolio design system.</p>
+          </div>
+          <span class="tag-pill" style="height: fit-content;">BRANDING</span>
+        </div>
+      </div>
+
+      <div class="template-card" data-category="VISUAL IDENTITY">
+        <div class="template-img-wrapper">
+          <img src="assets/images/template_agency.jpg" alt="Creative Digital Agency" class="template-img" />
+          <div class="template-hover-badge">→</div>
+        </div>
+        <div class="template-meta">
+          <div>
+            <h3 class="template-title">Creative Digital Agency</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.3rem;">Futuristic Web3 digital design agency website with neon 3D elements.</p>
+          </div>
+          <span class="tag-pill" style="height: fit-content;">VISUAL IDENTITY</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="section-padding">
+    <h2 class="section-title-large">Services</h2>
+
+    <div class="services-layout">
+      <!-- Left Interactive Image Preview -->
+      <div class="service-preview-card">
+        <img id="servicePreviewImg" src="assets/images/service_branding.jpg" alt="Branding Service" class="service-preview-img" />
+      </div>
+
+      <!-- Middle Details & Checklist -->
+      <div class="service-list-details">
+        <!-- Tab Selector -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <button class="service-tab-btn" data-index="0" style="background: var(--accent-color); color: #000; border: 1px solid var(--border-color); padding: 0.4rem 1rem; border-radius: 9999px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+            01. Branding
+          </button>
+          <button class="service-tab-btn" data-index="1" style="background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.4rem 1rem; border-radius: 9999px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+            02. Web Design & Motion
+          </button>
+          <button class="service-tab-btn" data-index="2" style="background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.4rem 1rem; border-radius: 9999px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+            03. Visual Identity
+          </button>
+        </div>
+
+        <h3 class="service-title-text" id="serviceTitle">Branding</h3>
+        <p class="service-desc-text" id="serviceDesc">
+          I create distinctive brand identities through strategy and visual design, helping businesses stand out, connect with audiences, and leave a lasting impression.
+        </p>
+
+        <ul class="service-checklist" id="serviceChecklist">
+          <li><span class="slash">//</span> Brand Strategy</li>
+          <li><span class="slash">//</span> Visual Identity Design</li>
+          <li><span class="slash">//</span> Logo & Typography</li>
+          <li><span class="slash">//</span> Color Palette Creation</li>
+          <li><span class="slash">//</span> Brand Guidelines</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROCESS SECTION -->
+  <section id="process" class="section-padding" style="background: #050706;">
+    <h2 class="section-title-large">The Process</h2>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <div>
+          <div class="process-card-icon">
+            <img src="assets/images/sphere_1.jpg" alt="S1" />
+          </div>
+          <h3 class="process-card-title">Discover the Essence that drives your brand</h3>
+          <p class="process-card-desc">I begin by clarifying your goals, audience, and market fit. The insights gathered set a clear direction and define what makes your vision unique.</p>
+        </div>
+        <div class="process-card-watermark">S1</div>
+      </div>
+
+      <div class="process-card">
+        <div>
+          <div class="process-card-icon">
+            <img src="assets/images/sphere_2.jpg" alt="S2" />
+          </div>
+          <h3 class="process-card-title">Design Bold Ideas with clear intention</h3>
+          <p class="process-card-desc">I translate strategy into visual identity and page structure. Every visual element serves a purpose—clean, striking, and effective.</p>
+        </div>
+        <div class="process-card-watermark">S2</div>
+      </div>
+
+      <div class="process-card highlighted">
+        <div>
+          <div class="process-card-icon">
+            <img src="assets/images/sphere_3.jpg" alt="S3" />
+          </div>
+          <h3 class="process-card-title">Deliver with Speed and lasting impact</h3>
+          <p class="process-card-desc">I build and launch your site in modern web tech, then hand over an easy editor. You stay in control with continuous support.</p>
+        </div>
+        <div class="process-card-watermark">S3</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER & CONTACT -->
+  <footer id="contact" class="section-padding" style="border-top: 1px solid var(--border-color); padding-bottom: 3rem;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto 5rem auto;">
+      <div class="section-label" style="justify-content: center;">LET'S WORK TOGETHER</div>
+      <h2 class="section-title-large" style="font-size: clamp(2.5rem, 6vw, 5rem);">
+        Let's Create Something Extraordinary<span style="color: var(--accent-color);">_</span>
+      </h2>
+      <button class="cta-btn-pill open-modal-trigger" style="font-size: 1rem; padding: 1rem 2.5rem; margin-top: 2rem;">
+        START A PROJECT →
+      </button>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color); font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">
+      <div class="logo-brand">
+        <div class="logo-icon" style="width: 30px; height: 30px; font-size: 0.9rem;">M</div>
+        <span>MOMIN</span>
+      </div>
+
+      <div style="display: flex; gap: 2rem;">
+        <a href="https://github.com/Mominmajeed" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">GITHUB</a>
+        <a href="https://x.com/MominMajee301" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">TWITTER/X</a>
+        <a href="https://www.linkedin.com/in/momin-majeed-58288539a/" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">LINKEDIN</a>
+        <a href="https://dribbble.com/majeedmomin0" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: none;">DRIBBBLE</a>
+      </div>
+
+      <div>© 2025 MOMIN PORTFOLIO. ALL RIGHTS RESERVED.</div>
+    </div>
+  </footer>
+
+  <!-- Application Logic (Vanilla JS, 100% Offline & Reliable) -->
+  <script src="js/app.js"></script>
+</body>
+</html>
