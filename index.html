@@ -20,7 +20,7 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%2300ff66'/><text x='50%' y='65%' font-size='55' font-weight='800' text-anchor='middle' fill='%23000000'>M</text></svg>" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
   <!-- Custom Glow Cursor -->
@@ -112,36 +112,6 @@
         <button class="swatch-btn" data-color="#a855f7" data-glow="rgba(168, 85, 247, 0.4)" style="background: #a855f7;" title="Cyber Purple"></button>
         <button class="swatch-btn" data-color="#ffb703" data-glow="rgba(255, 183, 3, 0.4)" style="background: #ffb703;" title="Laser Amber"></button>
       </div>
-    </div>
-  </div>
-
-  <!-- PROJECT INQUIRY MODAL -->
-  <div id="projectModal" class="modal-backdrop" style="display: none;">
-    <div class="modal-content">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
-        <h2 style="font-family: var(--font-heading); font-size: 2rem;">Start A Project</h2>
-        <button id="closeModalBtn" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">
-          ✕
-        </button>
-      </div>
-
-      <form id="projectForm">
-        <div class="form-group">
-          <label class="form-label">YOUR NAME</label>
-          <input type="text" class="form-input" placeholder="Momin" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">YOUR EMAIL</label>
-          <input type="email" class="form-input" placeholder="mominmajeed123@gmail.com" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">PROJECT DETAILS</label>
-          <textarea class="form-textarea" rows="4" placeholder="Tell me about your goals, timeline, and scope..." required></textarea>
-        </div>
-        <button type="submit" class="cta-btn-pill" style="width: 100%; justify-content: center; margin-top: 1rem;">
-          SEND INQUIRY →
-        </button>
-      </form>
     </div>
   </div>
 
@@ -386,7 +356,72 @@
     </div>
   </footer>
 
-  <!-- Application Logic (Vanilla JS, 100% Offline & Reliable) -->
-  <script src="js/app.js"></script>
+  <!-- START A PROJECT / CONTACT INQUIRY MODAL -->
+  <div class="modal-backdrop" id="projectModal" style="display: none;">
+    <div class="modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: #fff;">Start A Project</h3>
+        <button id="closeModalBtn" style="background: none; border: none; color: var(--text-secondary); font-size: 1.8rem; cursor: pointer;">✕</button>
+      </div>
+      
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; font-family: var(--font-main);">
+        Fill in your project details below. Your inquiry will be securely saved directly to Google Cloud Firestore.
+      </p>
+
+      <form id="projectForm">
+        <div class="form-group">
+          <label class="form-label" for="inquiryName">YOUR NAME</label>
+          <input type="text" id="inquiryName" name="name" class="form-input" placeholder="e.g. Alex Morgan" required />
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="inquiryEmail">YOUR EMAIL</label>
+          <input type="email" id="inquiryEmail" name="email" class="form-input" placeholder="alex@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inquiryCategory">SERVICE NEEDED</label>
+          <select id="inquiryCategory" name="category" class="form-input" style="background: #000; color: #fff; cursor: pointer;">
+            <option value="Web Design & Motion">Web Design & Motion</option>
+            <option value="Branding & Identity">Branding & Identity</option>
+            <option value="3D Graphics & WebGL">3D Graphics & WebGL</option>
+            <option value="Full Development">Full Development</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inquiryMessage">PROJECT DETAILS / MESSAGE</label>
+          <textarea id="inquiryMessage" name="message" class="form-textarea" rows="4" placeholder="Tell me about your project, timeline, and goals..." required></textarea>
+        </div>
+
+        <button type="submit" id="submitInquiryBtn" class="cta-btn-pill" style="width: 100%; border: none; cursor: pointer; justify-content: center; font-weight: 700;">
+          SEND INQUIRY TO CLOUD →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase Google Cloud Database SDK (Bulletproof Compat Mode) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDhh97kXJE-W4s25zQFi0JaFv9M3K9hxlo",
+      authDomain: "momin-portfolio-61069.firebaseapp.com",
+      projectId: "momin-portfolio-61069",
+      storageBucket: "momin-portfolio-61069.firebasestorage.app",
+      messagingSenderId: "322820678434",
+      appId: "1:322820678434:web:c50895ebd5d64d2f4bbb7b",
+      measurementId: "G-WSPG7GMWNB"
+    };
+
+    if (typeof firebase !== 'undefined') {
+      firebase.initializeApp(firebaseConfig);
+      window.cloudDb = firebase.firestore();
+    }
+  </script>
+
+  <!-- Application Logic (Vanilla JS) -->
+  <script src="./js/app.js?v=5"></script>
 </body>
 </html>

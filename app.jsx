@@ -371,22 +371,58 @@ function App() {
                 </button>
               </div>
 
-              <form onSubmit={(e) => {
+              <form onSubmit={async (e) => {
                 e.preventDefault();
-                setIsModalOpen(false);
-                showToast('Thank you! Your project inquiry has been received.');
+                const formObj = new FormData(e.currentTarget);
+                const nameVal = (formObj.get('name') || '').trim();
+                const emailVal = (formObj.get('email') || '').trim();
+                const messageVal = (formObj.get('message') || '').trim();
+
+                if (!nameVal || !emailVal || !messageVal) {
+                  alert('⚠️ Please fill in Name, Email, and Project Details!');
+                  return;
+                }
+
+                try {
+                  if (window.cloudDb) {
+                    await window.cloudDb.collection('inquiries').add({
+                      name: nameVal,
+                      email: emailVal,
+                      message: messageVal,
+                      createdAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+                    });
+                    showToast('Success! Saved to Google Cloud Database.');
+                    alert(`✅ SUCCESS! Saved to Firebase:\nName: ${nameVal}\nEmail: ${emailVal}`);
+                  } else if (window.firebaseDb && window.firebaseAddDoc && window.firebaseCollection) {
+                    await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDb, 'inquiries'), {
+                      name: nameVal,
+                      email: emailVal,
+                      message: messageVal,
+                      createdAt: window.firebaseServerTimestamp ? window.firebaseServerTimestamp() : new Date().toISOString()
+                    });
+                    showToast('Success! Saved to Google Cloud Database.');
+                    alert(`✅ SUCCESS! Saved to Firebase:\nName: ${nameVal}\nEmail: ${emailVal}`);
+                  } else {
+                    alert('⚠️ Firebase is still loading. Please refresh the page & try again!');
+                  }
+                } catch (err) {
+                  console.error('Firebase Error:', err);
+                  alert('❌ Firebase Error: ' + (err.message || 'Check rules'));
+                } finally {
+                  setIsModalOpen(false);
+                }
               }}>
                 <div className="form-group">
                   <label className="form-label">YOUR NAME</label>
-                  <input type="text" className="form-input" placeholder="Momin" required />
+                  <input type="text" name="name" className="form-input" placeholder="Momin" required />
                 </div>
                 <div className="form-group">
                   <label className="form-label">YOUR EMAIL</label>
-                  <input type="email" className="form-input" placeholder="mominmajeed123@gmail.com" required />
+                  <input type="email" name="email" className="form-input" placeholder="mominmajeed123@gmail.com" required />
                 </div>
                 <div className="form-group">
                   <label className="form-label">PROJECT DETAILS</label>
-                  <textarea className="form-textarea" rows="4" placeholder="Tell me about your goals, timeline, and scope..." required></textarea>
+                  <textarea name="message" className="form-textarea" rows="4" placeholder="Tell me about your goals, timeline, and scope..." required></textarea>
                 </div>
                 <button type="submit" className="cta-btn-pill" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
                   SEND INQUIRY →

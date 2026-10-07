@@ -236,11 +236,74 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (projectForm) {
-    projectForm.addEventListener('submit', (e) => {
+    projectForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (projectModal) projectModal.style.display = 'none';
-      projectForm.reset();
-      showToast('Thank you! Your project inquiry has been received.');
+
+      const submitBtn = document.getElementById('submitInquiryBtn');
+      const origText = submitBtn ? submitBtn.textContent : 'SEND INQUIRY TO CLOUD →';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Saving to Google Cloud... ⏳';
+      }
+
+      const formObj = new FormData(projectForm);
+      const nameVal = (formObj.get('name') || document.getElementById('inquiryName')?.value || '').trim();
+      const emailVal = (formObj.get('email') || document.getElementById('inquiryEmail')?.value || '').trim();
+      const categoryVal = formObj.get('category') || document.getElementById('inquiryCategory')?.value || 'Web Design & Motion';
+      const messageVal = (formObj.get('message') || document.getElementById('inquiryMessage')?.value || '').trim();
+
+      if (!nameVal || !emailVal || !messageVal) {
+        alert('⚠️ Please enter Name, Email, and Message before submitting!');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+        }
+        return;
+      }
+
+      console.log('Sending data to Firebase:', { name: nameVal, email: emailVal, category: categoryVal, message: messageVal });
+
+      try {
+        if (window.cloudDb) {
+          await window.cloudDb.collection('inquiries').add({
+            name: nameVal,
+            email: emailVal,
+            category: categoryVal,
+            message: messageVal,
+            createdAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+          });
+          showToast('Success! Saved to Google Cloud Database.');
+          alert(`✅ SUCCESS! Saved to Google Cloud:\nName: ${nameVal}\nEmail: ${emailVal}\nService: ${categoryVal}`);
+        } else if (window.firebaseDb && window.firebaseAddDoc && window.firebaseCollection) {
+          await window.firebaseAddDoc(window.firebaseCollection(window.firebaseDb, 'inquiries'), {
+            name: nameVal,
+            email: emailVal,
+            category: categoryVal,
+            message: messageVal,
+            createdAt: window.firebaseServerTimestamp ? window.firebaseServerTimestamp() : new Date().toISOString()
+          });
+          showToast('Success! Saved to Google Cloud Database.');
+          alert('✅ SUCCESS! Your project inquiry has been saved to Google Cloud Database.');
+        } else {
+          alert('⚠️ Firebase is still loading or offline. Please refresh the page and try again!');
+          showToast('Connecting to Cloud... Please refresh & try again.');
+        }
+      } catch (err) {
+        console.error('Cloud Firestore Error:', err);
+        alert('❌ Firebase Error: ' + (err.message || 'Check network / rules'));
+        if (err && (err.code === 'permission-denied' || (err.message && err.message.includes('permission')))) {
+          showToast('Error: Permission Denied! Check Firebase Rules.');
+        } else {
+          showToast('Error saving: ' + (err.message || 'Check connection'));
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+        }
+        if (projectModal) projectModal.style.display = 'none';
+        projectForm.reset();
+      }
     });
   }
 
